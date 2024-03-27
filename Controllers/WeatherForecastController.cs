@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace chu_core_webapi.Controllers
 {
@@ -24,20 +24,19 @@ namespace chu_core_webapi.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<WeatherForecast> Get()
         {
-            //var rng = new Random();
-            //return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            //{
-            //    Date = DateTime.Now.AddDays(index),
-            //    TemperatureC = rng.Next(-20, 55),
-            //    Summary = Summaries[rng.Next(Summaries.Length)]
-            //})
-            //.ToArray();
-
-            return Summaries;
+            var rng = new Random();
+            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            {
+                Date = DateTime.Now.AddDays(index),
+                TemperatureC = rng.Next(-20, 55),
+                Summary = Summaries[rng.Next(Summaries.Length)]
+            })
+            .ToArray();
         }
 
+        // GET api/weatherforecast/additem
         [HttpGet]
         [Route("additem")]
         public IEnumerable<char> AddItem()
@@ -49,6 +48,7 @@ namespace chu_core_webapi.Controllers
             return letter; // a, b, d
         }
 
+        // GET api/weatherforecast/additems
         [HttpGet]
         [Route("additems")]
         public string AddItems()
@@ -59,6 +59,15 @@ namespace chu_core_webapi.Controllers
   
             return String.Concat(letters); // 'abcdefghij'
         }
+
+        // GET api/weatherforecast/getall
+        [HttpGet]
+        [Route("getall")]
+        public IEnumerable<string> GetAll()
+        {
+            return Summaries;
+        }
+
         // GET api/weatherforecast/5
         [HttpGet]
         [Route("{id}")]
